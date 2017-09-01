@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Workshop</string>
+    <string name="title_activity_person">Pessoa</string>
+
+    <string name="textName">Nome</string>
+    <string name="txtEndereco">Endereco</string>
+    <string name="txtSalvar">Salvar</string>
+    <string name="search_title">Pesquisar pessoa</string>
+    <string name="settings">Configurações</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="txtUrlPorta">URL e Porta de acesso</string>
+    <string name="txtHobbies">Hobbies</string>
+
+    <string name="attention">Atenção!</string>
+    <string name="remove_message">Deseja remover a pessoa selecionada?</string>
+    <string name="no">Não</string>
+    <string name="success">Sucesso!</string>
+    <string name="error">Erro!</string>
+    <string name="ok">OK</string>
+    <string name="remove_success">A pessoa foi removida com sucesso!</string>
+    <string name="remove_error">Não foi possível remover!</string>
+</resources>

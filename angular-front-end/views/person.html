@@ -1,0 +1,25 @@
+<div class="w3-container" style="padding: 10px">
+    <button id="add" class="w3-btn w3-blue" ng-click="add();">Add</button>
+    <div class="input-control text" style="float: right;">
+        <input id="search" type="text" ng-model="search" placeholder="Search...">
+    </div>
+</div>
+<div class="w3-container" style="padding: 10px">
+    <table class="w3-table w3-border w3-bordered w3-striped">
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Hobbies</th>
+            <th>Action</th>
+        </tr>
+        <tr ng-repeat="data in datas | filter:search">
+            <td>{{ data.name}}</td>
+            <td>{{ data.address}}</td>
+            <td>{{ data.hobbies}}</td>
+            <td style="width: 170px">
+                <button id="edit" class="w3-btn w3-tiny w3-blue" ng-click="edit(data)">Edit</button>
+                <button id="remove" class="w3-btn w3-tiny w3-red" ng-click="remove(data.id)">Delete</button>
+            </td>
+        </tr>
+    </table>
+</div>

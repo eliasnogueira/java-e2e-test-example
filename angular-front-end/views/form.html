@@ -1,0 +1,24 @@
+<div class="w3-container">
+    <form name="form" style="
+          margin: auto;
+          width: 60%;
+          padding: 10px;
+          ">
+        <p>
+            <label class="w3-label">Name</label>
+            <input id="name" ng-model="post.name" class="w3-input" type="text" required>
+        </p>
+        <p>
+            <label class="w3-label">Address</label>
+            <input name="address" ng-model="post.address" class="w3-input" type="text" required>
+        </p>
+        <p>
+            <label class="w3-label">Hobbies</label>
+            <input ng-model="post.hobbies" class="w3-input" type="text" required>
+        </p>
+        <p>
+            <button id="back" class="w3-btn w3-black" ng-click="back();">Back</button>
+            <button class="w3-btn w3-teal" ng-click="save();" ng-disabled="form.$invalid">Save</button>
+        </p>
+    </form>
+</div>
