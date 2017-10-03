@@ -23,34 +23,34 @@ public class PersonActivity extends AppCompatActivity {
     public Retrofit retrofit;
     ApiEndpointsInterface apiService;
 
-    private EditText txtNome;
-    private EditText txtEndereco;
+    private EditText txtName;
+    private EditText txtAddress;
     private EditText txtHobbies;
 
     private Person personIntent;
 
-    private enum Tipo {
-        ADICIONAR, ALTERAR;
+    private enum Type {
+        ADD, ALTER;
     }
 
-    private Tipo tipoAcao;
+    private Type actionType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
 
-        txtNome = (EditText) findViewById(R.id.txt_nome);
-        txtEndereco = (EditText) findViewById(R.id.txt_endereco);
+        txtName = (EditText) findViewById(R.id.txt_nome);
+        txtAddress = (EditText) findViewById(R.id.txt_endereco);
         txtHobbies = (EditText) findViewById(R.id.txt_hobbies);
 
         Intent intent = getIntent();
         String id = intent.getStringExtra(ListActivity.ID);
-        String nome = intent.getStringExtra(ListActivity.NAME);
-        String endereco = intent.getStringExtra(ListActivity.ADDRESS);
+        String name = intent.getStringExtra(ListActivity.NAME);
+        String address = intent.getStringExtra(ListActivity.ADDRESS);
         String hobbies = intent.getStringExtra(ListActivity.HOBBIES);
 
-        personIntent = new Person(id, nome, endereco, hobbies);
+        personIntent = new Person(id, name, address, hobbies);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(ApiEndpointsInterface.URL)
@@ -60,27 +60,25 @@ public class PersonActivity extends AppCompatActivity {
         apiService = retrofit.create(ApiEndpointsInterface.class);
 
         if (id == null) {
-            tipoAcao = Tipo.ADICIONAR;
-            System.out.println("----- ADICIONAR -----");
+            actionType = Type.ADD;
 
         } else {
-            tipoAcao = Tipo.ALTERAR;
-            System.out.println("----- ALTERAR -----");
-            txtNome.setText(nome);
-            txtEndereco.setText(endereco);
+            actionType = Type.ALTER;
+            txtName.setText(name);
+            txtAddress.setText(address);
             txtHobbies.setText(hobbies);
         }
     }
 
-    public void acaoBotao(final View view) {
+    public void action(final View view) {
 
-        String nome = txtNome.getText().toString();
-        String endereco = txtEndereco.getText().toString();
+        String nome = txtName.getText().toString();
+        String endereco = txtAddress.getText().toString();
         String hobbies = txtHobbies.getText().toString();
 
         if (nome.isEmpty() || endereco.isEmpty() || hobbies.isEmpty()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-            builder.setMessage("Preencha todos os campos!").setTitle("Atenção").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(PersonActivity.this);
+            builder.setMessage(R.string.fill_required).setTitle(R.string.attention).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     //finish();
@@ -91,9 +89,9 @@ public class PersonActivity extends AppCompatActivity {
             dialog.show();
 
         } else {
-            switch (tipoAcao) {
+            switch (actionType) {
 
-                case ADICIONAR:
+                case ADD:
                     Person person = new Person(nome, endereco, hobbies);
 
                     Call<Person> call = apiService.postPerson(person);
@@ -101,7 +99,7 @@ public class PersonActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<Person> call, Response<Person> response) {
                             if (response.isSuccessful()) {
-                                voltaParaLista(view);
+                                backToList(view);
                             }
                         }
 
@@ -112,18 +110,17 @@ public class PersonActivity extends AppCompatActivity {
                     });
 
                     break;
-                case ALTERAR:
-                    personIntent.setName(txtNome.getText().toString());
-                    personIntent.setAddress(txtEndereco.getText().toString());
+                case ALTER:
+                    personIntent.setName(txtName.getText().toString());
+                    personIntent.setAddress(txtAddress.getText().toString());
                     personIntent.setHobbies(txtHobbies.getText().toString());
 
-                    System.out.println(txtNome.getText().toString());
-                    Call<Person> callAlterar = apiService.putPerson(personIntent.getId(), personIntent);
-                    callAlterar.enqueue(new Callback<Person>() {
+                    Call<Person> callChange = apiService.putPerson(personIntent.getId(), personIntent);
+                    callChange.enqueue(new Callback<Person>() {
                         @Override
                         public void onResponse(Call<Person> call, Response<Person> response) {
                             if (response.isSuccessful()) {
-                                voltaParaLista(view);
+                                backToList(view);
                             }
                         }
 
@@ -139,7 +136,7 @@ public class PersonActivity extends AppCompatActivity {
     }
 
 
-    public void voltaParaLista(View view) {
+    public void backToList(View view) {
         Intent intent1 = new Intent(this, ListActivity.class);
         startActivity(intent1);
     }

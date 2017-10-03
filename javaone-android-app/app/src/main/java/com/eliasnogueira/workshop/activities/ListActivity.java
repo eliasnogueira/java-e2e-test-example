@@ -57,7 +57,7 @@ public class ListActivity extends AppCompatActivity implements SwipeRefreshLayou
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                abreCriacao(view);
+                openForCreation(view);
             }
         });
 
@@ -70,55 +70,16 @@ public class ListActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         apiService = retrofit.create(ApiEndpointsInterface.class);
 
-        obtemLista();
+        getDataList();
 
         swipeRefreshLayout.setOnRefreshListener(this);
-        /*
-        Call<List<Person>> call = apiService.getPerson();
-
-        call.enqueue(new Callback<List<Person>>() {
-
-            @Override
-            public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
-                if (!response.isSuccessful()) {
-                    try {
-                        System.out.println(response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    return;
-                }
-
-                try {
-                    listPerson = response.body();
-
-                    for (Person person : listPerson) {
-                        System.out.println(person.toString());
-                    }
-
-                    adapter = new ArrayAdapter<Person>(ListActivity.this, android.R.layout.simple_expandable_list_item_1, listPerson);
-                    listView.setAdapter(adapter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Person>> call, Throwable t) {
-                System.err.println(t.getMessage());
-            }
-        });
-        */
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Object obj = listView.getItemAtPosition(i);
-                String id = ((Person)obj).getId();
-                String name = ((Person)obj).getName();
-
-                abreEdicao(view, obj);
+                openForEdition(view, obj);
             }
         });
 
@@ -126,15 +87,15 @@ public class ListActivity extends AppCompatActivity implements SwipeRefreshLayou
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Object obj = listView.getItemAtPosition(i);
-                Person pessoa = ((Person)obj);
+                Person person = ((Person)obj);
 
-                remove(view, pessoa);
+                remove(view, person);
                 return true;
             }
         });
     }
 
-    private void obtemLista() {
+    private void getDataList() {
         Call<List<Person>> call = apiService.getPerson();
         call.enqueue(new Callback<List<Person>>() {
 
@@ -170,7 +131,7 @@ public class ListActivity extends AppCompatActivity implements SwipeRefreshLayou
         });
     }
 
-    public void abreEdicao(View view, Object obj) {
+    public void openForEdition(View view, Object obj) {
         Intent intent = new Intent(this, PersonActivity.class);
 
         String id = ((Person)obj).getId();
@@ -186,7 +147,7 @@ public class ListActivity extends AppCompatActivity implements SwipeRefreshLayou
         startActivity(intent);
     }
 
-    public void abreCriacao(View view) {
+    public void openForCreation(View view) {
         Intent intent = new Intent(this, PersonActivity.class);
 
         String id = null;
@@ -220,28 +181,28 @@ public class ListActivity extends AppCompatActivity implements SwipeRefreshLayou
         return true;
     }
 
-    public void remove(View view, final Person pessoa) {
+    public void remove(View view, final Person person) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(R.string.attention);
         alertDialogBuilder.setMessage(R.string.remove_message);
 
-        alertDialogBuilder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                Call<Void> call = apiService.deletePerson(pessoa.getId());
+                Call<Void> call = apiService.deletePerson(person.getId());
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        adapter.remove(pessoa);
+                        adapter.remove(person);
                         adapter.notifyDataSetChanged();
 
-                        showSucesso(true);
+                        showSuccess(true);
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        showSucesso(false);
+                        showSuccess(false);
                     }
                 });
             }
@@ -261,15 +222,15 @@ public class ListActivity extends AppCompatActivity implements SwipeRefreshLayou
     public void refresh(View view) {
         swipeRefreshLayout.setRefreshing(true);
 
-        obtemLista();
+        getDataList();
 
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    private void showSucesso(boolean sucesso) {
+    private void showSuccess(boolean success) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        if (sucesso) {
+        if (success) {
             alert.setTitle(R.string.success);
             alert.setMessage(R.string.remove_success);
         } else {
@@ -290,11 +251,10 @@ public class ListActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override
     public void onRefresh() {
-        System.out.println("Entrou onRefresh");
-
         swipeRefreshLayout.setRefreshing(true);
-        obtemLista();
+
+        getDataList();
+
         swipeRefreshLayout.setRefreshing(false);
-        System.out.println("Saiu onRefresh");
     }
 }

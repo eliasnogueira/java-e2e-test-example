@@ -61,13 +61,13 @@
         android:inputType="text" />
 
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/txtSalvar"
-        android:id="@+id/button"
-        android:layout_below="@+id/txt_hobbies"
         android:layout_alignParentEnd="true"
+        android:layout_below="@+id/txt_hobbies"
         android:background="#424aae"
-        android:textColor="#ffffff"
-        android:onClick="acaoBotao" />
+        android:onClick="action"
+        android:text="@string/txtSalvar"
+        android:textColor="#ffffff" />
 </RelativeLayout>
