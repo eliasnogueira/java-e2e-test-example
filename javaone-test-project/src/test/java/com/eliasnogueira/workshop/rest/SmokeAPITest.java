@@ -68,11 +68,21 @@ public class SmokeAPITest {
 
     @Test
     public void alterPerson() {
+        int personID = 
+            given()
+                .contentType(ContentType.JSON)
+                .body(new Person("Yara Senger", "SP", "TDC")).
+        when().
+            post("person").
+        then().
+            extract().
+                path("id");
+        
         given().
             contentType(ContentType.JSON).
-            body(new Person("Bruno Souza", "SP", "Comer")).
+            body(new Person("Bruno Souza", "SP", "Eat")).
         when().
-            put("person/{id}", 2).
+            put("person/{id}", personID).
         then().
             statusCode(200);
     }
