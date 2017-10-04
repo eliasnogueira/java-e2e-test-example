@@ -87,15 +87,25 @@ public class FunctionalAPITest {
 
     @Test
     public void alterPerson() {
+        int personID = 
+            given()
+                .contentType(ContentType.JSON)
+                .body(new Person("Elias", "RS", "Automete Tests")).
+        when().
+            post("person").
+        then().
+            extract().
+                path("id");
+        
         given().
             contentType(ContentType.JSON).
-            body(new Person("Bruno Souza", "SP", "Comer")).
+            body(new Person("Elias", "RS", "Pair with devs")).
         when().
-            put("person/{id}", 2).
+            put("person/{id}", personID).
         then().
-            body("name", equalTo("Bruno Souza")).and().
-            body("address", equalTo("SP")).and().
-            body("hobbies", equalTo("Comer")).and().
+            body("name", equalTo("Elias")).and().
+            body("address", equalTo("RS")).and().
+            body("hobbies", equalTo("Pair with devs")).and().
             statusCode(200);
     }
 }
