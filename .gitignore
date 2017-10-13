@@ -80,4 +80,8 @@ buildNumber.properties
 .classpath
 .project
 .settings
+<<<<<<< HEAD
 .vscode
+=======
+.vscode
+>>>>>>> 50eea24f9abfcb6198b46484d877aa71092baa48
