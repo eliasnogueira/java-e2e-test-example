@@ -12,6 +12,7 @@ import javax.persistence.Persistence;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 /**
  *
  * @author eliasnogueira
@@ -29,24 +30,19 @@ public class PersonPersistenceTest {
     
     @Test
     public void createAndFindPersonTest() {
-        jpa.create(
-                new Person(
+        Person person = new Person(
                         "TEST_CREATING_NAME", 
                         "TEST_CREATION_ADDRESS", 
-                        "TEST_CREATION_HOBBIES")
-        );
+                        "TEST_CREATION_HOBBIES");
         
-        jpa.findPerson(1);
-    }
-    
-   
-    private Person createPerson(String name, String address, String hobbies) {
-        Person person = new Person();
-        person.setName(name);
-        person.setAddress(address);
-        person.setHobbies(hobbies);
+        jpa.create(person);
         
-        return person;
+        Person personReturned = 
+                jpa.findPerson(person.getId());
+        
+        assertEquals("TEST_CREATING_NAME", personReturned.getName());
+        assertEquals("TEST_CREATION_ADDRESS", personReturned.getAddress());
+        assertEquals("TEST_CREATION_HOBBIES", personReturned.getHobbies());
     }
     
     @AfterClass
