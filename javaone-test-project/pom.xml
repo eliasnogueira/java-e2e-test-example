@@ -128,7 +128,7 @@
         </profile>
 
         <profile>
-            <id>api-functional-smoke</id>
+            <id>api-functional-mock</id>
             <build>
                 <plugins>
                     <plugin>
@@ -137,7 +137,7 @@
                         <version>2.12.4</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>src/test/resources/api_functional_smoke.xml</suiteXmlFile>
+                                <suiteXmlFile>src/test/resources/api_functional_mock.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
