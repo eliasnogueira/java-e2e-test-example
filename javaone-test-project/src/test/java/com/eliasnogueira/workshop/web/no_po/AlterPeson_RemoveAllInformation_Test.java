@@ -1,13 +1,13 @@
-package com.eliasnogueira.workshop.web;
+package com.eliasnogueira.workshop.web.no_po;
 
-import static org.junit.Assert.*;
+import static org.testng.Assert.*;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
 
 public class AlterPeson_RemoveAllInformation_Test {
 

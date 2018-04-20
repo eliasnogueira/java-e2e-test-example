@@ -1,13 +1,15 @@
 package com.eliasnogueira.workshop.rest;
 
+import com.eliasnogueira.workshop.api.SparkMockAPI;
 import com.eliasnogueira.workshop.api.model.Person;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.*;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import spark.Spark;
 
 /**
  * Run thought the Mocked API
@@ -19,7 +21,7 @@ import org.junit.Test;
  */
 public class SmokeAPITest {
 
-    @BeforeClass
+    @BeforeMethod
     public static void setUp() {
         baseURI = "http://localhost";
         port = 4567;

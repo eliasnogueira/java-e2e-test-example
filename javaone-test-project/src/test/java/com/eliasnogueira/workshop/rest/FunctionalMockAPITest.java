@@ -8,9 +8,7 @@ import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import static org.hamcrest.CoreMatchers.*;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.testng.annotations.*;
 import spark.Spark;
 
 /**
@@ -23,7 +21,7 @@ import spark.Spark;
  */
 public class FunctionalMockAPITest {
 
-    @BeforeClass
+    @BeforeMethod
     public static void setUp() {
         baseURI = "http://localhost";
         port = 6666;
@@ -33,7 +31,7 @@ public class FunctionalMockAPITest {
         SparkMockAPI.main(null);
     }
 
-    @AfterClass
+    @AfterMethod
     public static void tearDown() {
         Spark.stop();
     }

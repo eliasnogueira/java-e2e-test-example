@@ -1,0 +1,16 @@
+<suite name="Suite" parallel="tests" thread-count="3" >
+
+    <test name="search-chrome">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.eliasnogueira.workshop.web.po.AddPersonTest"/>
+        </classes>
+    </test>
+
+    <test name="search-firefox">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.eliasnogueira.workshop.web.po.AddPersonTest"/>
+        </classes>
+    </test>
+</suite>

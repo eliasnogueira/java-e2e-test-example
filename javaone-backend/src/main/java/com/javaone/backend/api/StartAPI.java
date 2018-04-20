@@ -40,9 +40,12 @@ public class StartAPI {
         /**
          * get person by id
          */
-        get("api/v1/person/:id", (req, res) -> {
-            int id = Integer.parseInt(req.params("id"));
-            Person person = personController.findPerson(id);
+        get("api/v1/person/:id",
+                (req, res) -> {
+            int id = Integer.
+                    parseInt(req.params("id"));
+            Person person =
+                    personController.findPerson(id);
 
             res.type("application/json");
             if (person == null) {
