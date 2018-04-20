@@ -1,0 +1,9 @@
+<suite name="API_Smoke_Test" parallel="tests" thread-count="3" >
+
+    <test name="smoke_test">
+        <classes>
+            <class name="com.eliasnogueira.workshop.rest.SmokeAPITest"/>
+        </classes>
+    </test>
+
+</suite>
