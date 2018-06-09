@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-** Java Test Automation for REST, Web, and Mobile [CON6070] **
+# Automatically Testing an End-to-End Java Application
 
-### Repo Structure
+## Repo Structure
 
 ### angular front-end
 HTML files that you must to put in your application server.
@@ -21,8 +20,8 @@ The backend app. It's a REST service created with Java Spark.
 This is a CRUD app with MySQL database
 
 ### javaone-test-project
-=======
-### Repositiry for two presentations at JavaOne 2017
+The test project that contains all the test scripts for API, Web and Mobile Tests
+
+## Repositiry for two presentations at JavaOne 2017
 * Java Test Automation for REST, Web, and Mobile [CON6070]
 * Trust Your Pipeline: Automatically Testing an End-to-End Java Application [CON6121]
->>>>>>> 50eea24f9abfcb6198b46484d877aa71092baa48
